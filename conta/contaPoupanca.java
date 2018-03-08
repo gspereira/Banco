@@ -14,8 +14,8 @@ public class contaPoupanca extends conta{
 		return rendimentoMes;
 	}
 
-	public void setRendimentoMes(double rendimentoMes) {
-		this.rendimentoMes = rendimentoMes;
+	public void setRendimentoMes(double valorRenMes) {
+		this.rendimentoMes = valorRenMes;
 	}
 
 	public double getTaxaRendimento() {
@@ -30,8 +30,8 @@ public class contaPoupanca extends conta{
 		return taxaAnual;
 	}
 
-	public void setTaxaAnual(double taxaAnual) {
-		this.taxaAnual = taxaAnual;
+	public void setTaxaAnual(double renAnual) {
+		this.taxaAnual = renAnual;
 	}
 
 	public contaPoupanca(int agencia, int numero) {
@@ -43,9 +43,9 @@ public class contaPoupanca extends conta{
 	}
 	
 	public String rendimento(double taxaMes, int mesAtual){
-		double rendimentos = getSaldo() + ((getSaldo() / taxaMes) * 100);
+		setRendimentoMes((getSaldo() / 100) * taxaMes);
+		double rendimentos = getSaldo() + ((getSaldo() / 100) * taxaMes);
 		setSaldo(rendimentos);
-		setRendimentoMes((getSaldo()/taxaMes)*100);
 		setTaxaRendimento(taxaMes);
 		if(mesAtual != 1){
 			double taxaAnual = getTaxaAnual() + taxaMes;

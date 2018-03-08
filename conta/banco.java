@@ -35,15 +35,32 @@ public class banco {
 	}
 	
 	public static int procurarConta(int numConta){
+		int ret = 0;
 		if(contas.isEmpty()){
-			return 0;
+			ret = -1;
 		}
-		for(int i = 0; i < contas.size(); i++){
-			if(contas.get(i).getNumero() == numConta){
-				return i;
+		int check;
+		for(int i = 1; i < contas.size(); i++){
+			check = contas.get(i).getNumero();
+			if(check == numConta){
+				ret = i;
 			}
 		}
-		return 0;
+		return ret;
+	}
+	
+	public static String listar(int pos){
+		String tipo = null;
+		if(contas.get(pos).getTipo() == 1){
+			tipo = "Conta Corrente";
+		}
+		else if (contas.get(pos).getTipo() == 2){
+			tipo = "Conta Especial";
+		}
+		else if(contas.get(pos).getTipo() == 3){
+			tipo = "Conta Poupança";
+		}
+		return contas.get(pos).getAgencia()+"\t\t   "+contas.get(pos).getNumero()+"\t\t"+tipo;
 	}
 
 	public static void main(String[] args) {
@@ -156,17 +173,20 @@ public class banco {
 				System.out.print("Digite o número da conta a ser localizada: ");
 				 int numConta = intCheck();
 				 while(numConta == 0){
-						numConta = intCheck();
-						
+						numConta = intCheck();		
 				 }
 				 int check = procurarConta(numConta);
-				 if(check == 0){
+				 if(check == -1){
 					 System.out.println("Conta Inexistente");
 				 } else {
+	 				System.out.println("##########################################");
+ 					System.out.println("Conta "+numConta+" Localizada");
+ 					System.out.println("##########################################");
 					 switch(contas.get(check).getTipo()){
 					 
 					 	case 1:
 					 		while(escolha != 4){
+						 		contaCorrente receiveCC = (contaCorrente) contas.get(check);
 					 			System.out.println("Você deseja?\n"
 					 							 + "(1)- Fazer um depósito\n"
 					 							 + "(2)- Fazer um saque\n"
@@ -185,7 +205,7 @@ public class banco {
 					 						valor = doubleCheck();
 					 					}
 										System.out.println("##########################################");
-					 					System.out.println(contas.get(check).depositar(valor));
+					 					System.out.println(receiveCC.depositar(valor));
 										System.out.println("##########################################");
 										escolha = 0;
 										valor = 0;
@@ -198,26 +218,158 @@ public class banco {
 					 						valor = doubleCheck();
 					 					}
 					 					System.out.println("##########################################");
-					 					System.out.println(contas.get(check).sacar(valor));
+					 					System.out.println(receiveCC.sacar(valor));
 										System.out.println("##########################################");
 										escolha = 0;
 										valor = 0;
 										break;
 										
 					 				case 3:
-					 					System.out.println(contas.get(check).toString());
+					 					System.out.println("##########################################");
+					 					System.out.println(receiveCC.toString());
+					 					System.out.println("##########################################");
 					 					break;
 					 					
 					 				case 4:
+					 					escolha = 4;
+					 					check = 0;
 					 					break;
 					 			}
 					 		}
 					 		
 					 	case 2:
-					 		
+					 		while(escolha != 4){
+						 		contaEspecial receiveEsp = (contaEspecial) contas.get(check);
+					 			System.out.println("Você deseja?\n"
+			 							 + "(1)- Fazer um depósito\n"
+			 							 + "(2)- Fazer um saque\n"
+			 							 + "(3)- Ver Informações da conta\n"
+			 							 + "(4)- Sair");
+					 			escolha = intCheck();
+					 			while(escolha == 0 || escolha > 4){
+					 				escolha = intCheck();
+					 			}
+					 			double valor;
+					 			switch(escolha){
+					 				case 1:
+					 					System.out.println("Digite o valor a ser depositado: ");
+					 					valor = doubleCheck();
+					 					while(valor <= 0){
+					 						valor = doubleCheck();
+					 					}
+										System.out.println("##########################################");
+					 					System.out.println(receiveEsp.depositar(valor));
+										System.out.println("##########################################");
+										escolha = 0;
+										valor = 0;
+										break;
+										
+					 				case 2:
+					 					System.out.println("Digite o valor a ser sacado: ");
+					 					valor = doubleCheck();
+					 					while(valor <= 0){
+					 						valor = doubleCheck();
+					 					}
+					 					System.out.println("##########################################");
+					 					System.out.println(receiveEsp.sacar(valor));
+										System.out.println("##########################################");
+										escolha = 0;
+										valor = 0;
+										break;
+										
+					 				case 3:
+					 					System.out.println("##########################################");
+					 					System.out.println(receiveEsp.toString());
+					 					System.out.println("##########################################");
+					 					break;
+					 					
+					 				case 4:
+					 					check = 0;
+					 					break;
+					 			}
+					 		}
+					 	case 3: 
+					 		while(escolha != 5){
+					 			contaPoupanca receivePoup = (contaPoupanca) contas.get(check);
+					 			System.out.println("Você deseja?\n"
+			 							 + "(1)- Fazer um depósito\n"
+			 							 + "(2)- Fazer um saque\n"
+			 							 + "(3)- Fazer rendimento\n"
+			 							 + "(4)- Ver Informações da conta\n"
+			 							 + "(5)- Sair");
+					 			escolha = intCheck();
+					 			while(escolha == 0 || escolha > 5){
+					 				escolha = intCheck();
+					 			}
+					 			double valor;
+					 			switch(escolha){
+					 				case 1:
+					 					System.out.println("Digite o valor a ser depositado: ");
+					 					valor = doubleCheck();
+					 					while(valor <= 0){
+					 						valor = doubleCheck();
+					 					}
+										System.out.println("##########################################");
+					 					System.out.println(receivePoup.depositar(valor));
+										System.out.println("##########################################");
+										escolha = 0;
+										valor = 0;
+										break;
+										
+					 				case 2:
+					 					System.out.println("Digite o valor a ser sacado: ");
+					 					valor = doubleCheck();
+					 					while(valor <= 0){
+					 						valor = doubleCheck();
+					 					}
+					 					System.out.println("##########################################");
+					 					System.out.println(receivePoup.sacar(valor));
+										System.out.println("##########################################");
+										escolha = 0;
+										valor = 0;
+										break;
+										
+					 				case 3: 
+					 					System.out.println("Digite a taxa no mês: ");
+					 					double valorTaxa = doubleCheck();
+					 					while(valorTaxa <= 0){
+					 						valorTaxa = doubleCheck();
+					 					}
+					 					if(mesLocal == 1){
+					 						System.out.println("O Mês atual é Janeiro, a taxa acumulada de rendimentos será zerada.");
+					 					}
+					 					System.out.println("##########################################");
+					 					System.out.println(receivePoup.rendimento(valorTaxa,mesLocal));
+					 					System.out.println("##########################################");
+					 					break;
+					 					
+					 				case 4:
+					 					System.out.println("##########################################");
+					 					System.out.println(receivePoup.toString());
+					 					System.out.println("##########################################");
+					 					break;
+					 					
+					 				case 5:
+					 					escolha = 0;
+					 					check = 0;
+					 					break;
+					 			}
+					 		}	 	
 					 }
 				 }
 				 
+			}
+			else if(escolha == 3){
+				System.out.println("Gerando Lista de Contas Existentes: ");
+				System.out.println("##########################################");
+				System.out.println("Agencia \t Número \t Tipo ");
+				for(int i=0 ; i< contas.size(); i++){
+					System.out.println(listar(i));
+				}
+				System.out.println("##########################################");
+			}
+			else if(escolha == 4){
+				break;
 			}
 		}
 
