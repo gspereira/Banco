@@ -231,11 +231,12 @@ public class banco {
 					 					break;
 					 					
 					 				case 4:
-					 					escolha = 4;
 					 					check = 0;
 					 					break;
 					 			}
 					 		}
+					 		escolha = 0;
+					 		break;
 					 		
 					 	case 2:
 					 		while(escolha != 4){
@@ -288,6 +289,8 @@ public class banco {
 					 					break;
 					 			}
 					 		}
+					 		escolha = 0;
+					 		break;
 					 	case 3: 
 					 		while(escolha != 5){
 					 			contaPoupanca receivePoup = (contaPoupanca) contas.get(check);
@@ -350,11 +353,12 @@ public class banco {
 					 					break;
 					 					
 					 				case 5:
-					 					escolha = 0;
 					 					check = 0;
 					 					break;
 					 			}
-					 		}	 	
+					 		}
+					 		escolha = 0;
+					 		break;
 					 }
 				 }
 				 

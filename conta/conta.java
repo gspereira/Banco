@@ -7,24 +7,40 @@ public class conta {
 	protected double saldo;
 	
 	public conta(int agencia, int numero, int tipo){
-		this.agencia = agencia;
-		this.numero = numero;
-		this.tipo = tipo;
-		saldo = 0.0;
+		try{
+			this.agencia = agencia;
+			this.numero = numero;
+			this.tipo = tipo;
+			saldo = 0.0;
+		}
+		catch(Exception e){
+			System.out.println("Valores invalidos");
+		}
 	}
 	
 	public String depositar(double valor){
-		saldo = saldo + valor;
-		return "Seu novo saldo é: "+saldo+" Reais";
+		try{
+			saldo = saldo + valor;
+			return "Seu novo saldo é: "+saldo+" Reais";
+		}
+		catch(Exception e){
+			return "Valor invalido";
+		}
 	}
 	
 	public String sacar(double valor){
-		if(saldo >= valor){
-			saldo = saldo - valor;
-			return "Seu novo saldo é: "+saldo+" Reais";
-		} else {
-			return "Saldo Insuficiente";
+		try{
+			if(saldo >= valor){
+				saldo = saldo - valor;
+				return "Seu novo saldo é: "+saldo+" Reais";
+			} else {
+				return "Saldo Insuficiente";
+			}
 		}
+		catch(Exception e){
+			return "Valor invalido";
+		}
+		
 	}
 	
 	public int getTipo() {

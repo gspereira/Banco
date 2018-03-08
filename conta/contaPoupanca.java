@@ -36,7 +36,12 @@ public class contaPoupanca extends conta{
 
 	public contaPoupanca(int agencia, int numero) {
 		super(agencia, numero, 3);
-		niver = LocalDate.now();
+		try{
+			niver = LocalDate.now();
+		}
+		catch(Exception e){
+			System.out.println("Valor invalido de data");
+		}
 		this.rendimentoMes = 0;
 		this.taxaRendimento = 0;
 		this.taxaAnual = 0;
